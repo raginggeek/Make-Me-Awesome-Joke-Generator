@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ShareActionProvider;
 import android.widget.TextView;
 
 import org.springframework.http.converter.json.GsonHttpMessageConverter;
@@ -21,6 +22,7 @@ public class MainActivity extends Activity {
     private TextView jokeView;
     private RestTemplate template = new RestTemplate();
     private AsyncTask<String, Void, String> task;
+    private ShareActionProvider shareActionProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,8 @@ public class MainActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem item = menu.findItem(R.id.actionShare);
+        shareActionProvider = (ShareActionProvider) item.getActionProvider();
         return true;
     }
 
@@ -84,6 +88,12 @@ public class MainActivity extends Activity {
         if (task != null) task.cancel(true);
     }
 
+    private void setIntent(String jokeText) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, jokeText);
+        shareActionProvider.setShareIntent(intent);
+    }
 
     private class JokeTask extends AsyncTask<String, Void, String> {
         @Override
@@ -94,6 +104,9 @@ public class MainActivity extends Activity {
         }
 
         @Override
-        protected void onPostExecute(String result) { jokeView.setText(result); }
+        protected void onPostExecute(String result) {
+            jokeView.setText(result);
+            setIntent(result);
+        }
     }
 }
