@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Make Me Awesome</string>
-    <string name="jokeViewText">Internet Carlos Ray Database</string>
+    <string name="jokeViewText">Make Me Awesome Joke Generator</string>
     <string name="jokeButtonLabel">Get Joke</string>
     <string name="settingsLabel">Settings</string>
     <string name="title_activity_settings">Settings</string>
@@ -76,7 +76,4 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
